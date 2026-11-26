@@ -1,5 +1,7 @@
 <form method="POST">
     {{ form.hidden_tag() }}
     {{ form.task_name.label }}{{ form.task_name() }}
+    {{ form.priority.label }}{{ form.priority() }}
+    {{ form.deadline.label }}{{ form.deadline() }}
     {{ form.submit_task() }}
 </form>

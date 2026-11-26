@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from app import TasksForm
+from forms import TasksForm
 
 bp = Blueprint("tasks", __name__)
 
@@ -9,4 +9,5 @@ def tasks():
     if form.validate_on_submit():
         name = form.task_name.data
         form.task_name.data = ""
-    return render_template("Tasks.html")
+        print(name)
+    return render_template("Tasks.html", form=form)

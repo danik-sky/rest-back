@@ -1,5 +1,4 @@
 from flask import Flask
-from models import Task as db_task
 from bp_tasks import bp as bp_task
 
 app = Flask(__name__)

@@ -14,3 +14,4 @@ class TasksForm(FlaskForm):
     done = SubmitField("Выполнить")
     delete = SubmitField("Удалить")
     date_sort = SubmitField("Отсортировать по дате")
+    priority_sort = SubmitField("Отсоритровать по приоритету")

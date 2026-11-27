@@ -21,6 +21,8 @@ def tasks():
                 return redirect(url_for("tasks.task_is_delete", id=id), code=307)
             elif "date" in name:
                 return redirect(url_for("tasks.sort_date"), code=307)
+            elif "priority" in name:
+                return redirect(url_for("tasks.sort_priority"), code=307)
     all_tasks = get_all_tasks()
     return render_template("Tasks.html", form=form, message=message, tasks=all_tasks)
 
@@ -51,4 +53,9 @@ def task_is_delete(id):
 @bp.route("/tasks/sort/date", methods=["POST"])
 def sort_date():
     sort_by_date()
+    return redirect(url_for("tasks.tasks"))
+
+@bp.route("/tasks/sort/priority", methods=["POST"])
+def sort_priority():
+    sort_by_priority()
     return redirect(url_for("tasks.tasks"))

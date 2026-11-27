@@ -36,7 +36,17 @@ def sort_by_date():
     con = sqlite3.connect("example.db")
     cursor = con.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS tasks_sorted (id INTEGER PRIMARY KEY, title TEXT NOT NULL, priority TEXT NOT NULL, deadline TEXT, is_done INTEGER DEFAULT 0)")
-    cursor.execute("INSERT INTO tasks_sorted (title, priority, deadline, is_done) SELECT title, priority, deadline, is_done FROM tasks ORDER BY deadline ASC")
+    cursor.execute("INSERT INTO tasks_sorted (title, priority, deadline, is_done) SELECT title, priority, deadline, is_done FROM tasks ORDER BY NULLIF(deadline, '') IS NULL, deadline ASC")
+    cursor.execute("DROP TABLE tasks")
+    cursor.execute("ALTER TABLE tasks_sorted RENAME TO tasks")
+    con.commit()
+    con.close()
+
+def sort_by_priority():
+    con = sqlite3.connect("example.db")
+    cursor = con.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS tasks_sorted (id INTEGER PRIMARY KEY, title TEXT NOT NULL, priority TEXT NOT NULL, deadline TEXT, is_done INTEGER DEFAULT 0)")
+    cursor.execute("INSERT INTO tasks_sorted (title, priority, deadline, is_done) SELECT title, priority, deadline, is_done FROM tasks ORDER BY CASE priority WHEN 'high' THEN 1 WHEN 'medium' THEN 2 ELSE 3 END ASC")
     cursor.execute("DROP TABLE tasks")
     cursor.execute("ALTER TABLE tasks_sorted RENAME TO tasks")
     con.commit()

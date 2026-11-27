@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, request
 from forms import TasksForm
 from datetime import datetime
 from crud import *
@@ -9,13 +9,13 @@ bp = Blueprint("tasks", __name__)
 def tasks():
     form = TasksForm()
     message = ''
-    if form.validate_on_submit():
-        if form.submit_task.data:
+    if request.method == "POST":
+        if form.validate_on_submit() and form.submit_task.data:
             return redirect(url_for("tasks.create"), code=307)
-        if form.done.data:
-            name = form.done.data
-            id = int(name.split('_')[1])
-            return redirect(url_for("tasks.task_is_done", id=id), code=307)
+        for name in request.form:
+            if "done" in name:
+                id = int(name.split("_")[1])
+                return redirect(url_for("tasks.task_is_done", id=id), code=307)
     all_tasks = get_all_tasks()
     return render_template("Tasks.html", form=form, message=message, tasks=all_tasks)
 

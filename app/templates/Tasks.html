@@ -19,7 +19,7 @@
         {% else %} 
         Выполнена. 
         {% set _ = form.delete.__setattr__('name', 'delete_' ~ task[0]) %}
-        {{ form.delete(value=task[0]) }}
+        {{ form.delete }}
         {% endif %}
     </p>
     {% endfor %}

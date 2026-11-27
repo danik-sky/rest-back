@@ -13,8 +13,13 @@
         {% if task[3] %} Дэдлайн: {{ task[3] }}, {% endif %} 
         {% if task[4] == 0 %} 
         Не выполнена. 
+        {% set _ = form.done.__setattr__('name', 'done_' ~ task[0]) %}
+        {% set _ = form.delete.__setattr__('name', 'delete_' ~ task[0]) %}
+        {{ form.done() }} {{ form.delete() }}
         {% else %} 
-        Выполнена.
+        Выполнена. 
+        {% set _ = form.delete.__setattr__('name', 'delete_' ~ task[0]) %}
+        {{ form.delete(value=task[0]) }}
         {% endif %}
     </p>
     {% endfor %}

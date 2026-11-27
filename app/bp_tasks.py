@@ -16,6 +16,9 @@ def tasks():
             if "done" in name:
                 id = int(name.split("_")[1])
                 return redirect(url_for("tasks.task_is_done", id=id), code=307)
+            if "delete" in name:
+                id = int(name.split("_")[1])
+                return redirect(url_for("tasks.task_is_delete", id=id), code=307)
     all_tasks = get_all_tasks()
     return render_template("Tasks.html", form=form, message=message, tasks=all_tasks)
 
@@ -36,4 +39,9 @@ def create():
 @bp.route("/tasks/<int:id>/done", methods=["POST"])
 def task_is_done(id):
     task_done(id)
+    return redirect(url_for("tasks.tasks"))
+
+@bp.route("/tasks/<int:id>/delete", methods=["POST"])
+def task_is_delete(id):
+    task_delete(id)
     return redirect(url_for("tasks.tasks"))

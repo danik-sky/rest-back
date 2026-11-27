@@ -24,3 +24,10 @@ def task_done(id):
     cursor.execute("UPDATE tasks SET is_done = 1 WHERE id = (?)", (id, ))
     con.commit()
     con.close()
+
+def task_delete(id):
+    con = sqlite3.connect("example.db")
+    cursor = con.cursor()
+    cursor.execute("DELETE FROM tasks WHERE id = (?)", (id, ))
+    con.commit()
+    con.close()

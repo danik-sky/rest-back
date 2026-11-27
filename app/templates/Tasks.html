@@ -5,7 +5,10 @@
     {{ form.deadline.label }}{{ form.deadline() }}
     {{ form.submit_task() }}
     <p>{{ message }}</p>
-    <p>Мои задачи</p>
+    <p>
+        Мои задачи
+        {{ form.date_sort() }}
+    </p>
     {% for task in tasks %}
     <p>
         Задача {{ task[0] }}: {{ task[1] }}, 

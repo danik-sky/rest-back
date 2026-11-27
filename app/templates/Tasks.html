@@ -5,4 +5,17 @@
     {{ form.deadline.label }}{{ form.deadline() }}
     {{ form.submit_task() }}
     <p>{{ message }}</p>
+    <p>Мои задачи</p>
+    {% for task in tasks %}
+    <p>
+        Задача {{ task[0] }}: {{ task[1] }}, 
+        Приоритет: {{ task[2] }}, 
+        {% if task[3] %} Дэдлайн: {{ task[3] }}, {% endif %} 
+        {% if task[4] == 0 %} 
+        Не выполнена. 
+        {% else %} 
+        Выполнена.
+        {% endif %}
+    </p>
+    {% endfor %}
 </form>

@@ -11,3 +11,5 @@ class TasksForm(FlaskForm):
         ] ,validators=[DataRequired(message="Выберите приоритет")])
     deadline = DateField("Дата конца задачи")
     submit_task = SubmitField("Создать задачу")
+    done = SubmitField("Выполнить")
+    delete = SubmitField("Удалить")

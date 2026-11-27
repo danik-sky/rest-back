@@ -10,7 +10,12 @@ def tasks():
     form = TasksForm()
     message = ''
     if form.validate_on_submit():
-        return redirect(url_for("tasks.create"), code=307)
+        if form.submit_task.data:
+            return redirect(url_for("tasks.create"), code=307)
+        if form.done.data:
+            name = form.done.data
+            id = int(name.split('_')[1])
+            return redirect(url_for("tasks.task_is_done", id=id), code=307)
     all_tasks = get_all_tasks()
     return render_template("Tasks.html", form=form, message=message, tasks=all_tasks)
 
@@ -26,4 +31,9 @@ def create():
     deadline = form.deadline.data
     form.task_name.data = ""
     create_task(name, priority, deadline)
+    return redirect(url_for("tasks.tasks"))
+
+@bp.route("/tasks/<int:id>/done", methods=["POST"])
+def task_is_done(id):
+    task_done(id)
     return redirect(url_for("tasks.tasks"))

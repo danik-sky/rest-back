@@ -15,4 +15,12 @@ def get_all_tasks():
     result = []
     for task in tasks:
         result.append(list(task))
+    con.close()
     return result
+
+def task_done(id):
+    con = sqlite3.connect("example.db")
+    cursor = con.cursor()
+    cursor.execute("UPDATE tasks SET is_done = 1 WHERE id = (?)", (id, ))
+    con.commit()
+    con.close()

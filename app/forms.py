@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired
 
 class TasksForm(FlaskForm):
-    task_name = StringField("Название задачи ", validators=[DataRequired(message="Введите название")])
+    task_name = StringField("Название задачи ")
     priority = SelectField("Приоритет задачи", choices=[
             ('low', 'Низкий'),
             ('medium', 'Средний'),
